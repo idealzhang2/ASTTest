@@ -40,6 +40,8 @@ public class ClassVisitor extends ASTVisitor{
 		  classnode.AddMethodNode(subnode);
 		 visitor.setMethodNode(subnode);
 		  mDeclaration.accept(visitor);
+		 // System.out.println();
+		//  System.out.println("==============="+mDeclaration.getName().getFullyQualifiedName()+"===================");
 		 return false;
 	 }
 }

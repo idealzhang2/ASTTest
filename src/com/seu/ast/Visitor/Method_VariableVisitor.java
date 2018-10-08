@@ -7,7 +7,11 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.TypeDeclarationStatement;
+import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
+import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 public class Method_VariableVisitor extends ASTVisitor {
 		private File_Method_Node Node = new File_Method_Node();
@@ -58,6 +62,7 @@ public class Method_VariableVisitor extends ASTVisitor {
 	@Override 
 	public boolean visit(SingleVariableDeclaration singleVariableDeclaration) {
 		String name = singleVariableDeclaration.getType().toString();
+		//System.out.println(name);
 		if(tem == null) {
 			tem = new Method_Variable_Node();
 		}
@@ -67,8 +72,15 @@ public class Method_VariableVisitor extends ASTVisitor {
 		return true;
 	}
 	@Override
+	public boolean visit(VariableDeclarationStatement typeDeclarationStatement) {
+		String tem = typeDeclarationStatement.toString();
+	
+		System.out.println(tem );
+		return true;
+	}
+	@Override
 	public boolean visit(ExpressionStatement tDeclaration) {
-		System.out.println("+++++++++"+tDeclaration.getExpression().toString()+"++++++++++");
+	//	System.out.println("+++++++++"+tDeclaration.getExpression().toString()+"++++++++++");
 		return false;
 	}
 }

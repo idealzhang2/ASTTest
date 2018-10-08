@@ -27,8 +27,8 @@ public class MainUtil {
 		Method_VariableVisitor visitor = new Method_VariableVisitor();
 		result.accept(visitor);
 		MethodVisitor mVisitor = new MethodVisitor();
-		visitor.print();
-		result.accept(mVisitor);
+		//visitor.print();
+		//result.accept(mVisitor);
 	}
 
 }

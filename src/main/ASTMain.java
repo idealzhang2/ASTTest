@@ -14,6 +14,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.internal.compiler.ast.ExtendedStringLiteral;
 
 import com.seu.ast.node.ClassNode;
+import com.seu.ast.node.ClassNodeInMethod;
 import com.seu.ast.node.CompilationNode;
 import com.seu.ast.node.MethodNode;
 import com.seu.ast.nodevisitor.ClassVisitor;
@@ -50,22 +51,23 @@ public class ASTMain {
 			ArrayList<MethodNode> temmethod = tem.getMethodlist();
 			for(int j = 0; j < temmethod.size();j++) {
 				MethodNode teMethodNode = temmethod.get(j);
-				System.out.println("Method FilePath:---------"+teMethodNode.getFilepath()+"-------Method Name:--------"+teMethodNode.getName()+"-------Return Type:----------"+teMethodNode.getReturntype());
+				System.out.println("-------Method Name:--------"+teMethodNode.getName()+"-------Return Type:----------"+teMethodNode.getReturntype()+"-----ÊýÁ¿"+teMethodNode.getSubclass().size());
 				ArrayList<String> parameter = teMethodNode.getParameter();
 				for(int t = 0; t < parameter.size();t++) {
-					System.out.print(parameter.get(t)+"         ");
+					System.out.print(parameter.get(t).toString()+"         ");
 				}
 				System.out.println();
-				ArrayList<String> classes = teMethodNode.getSubclass();
+				ArrayList<ClassNodeInMethod> classes = teMethodNode.getSubclass();
 				for(int t = 0;t < classes.size();t++) {
-					System.out.print(classes.get(t)+"       ");
+					System.out.println(classes.get(t).getClassname()+"  "+classes.get(t).getName());
+					for(String tt:classes.get(t).getMethod()) {
+						System.out.print(tt+"  ");	
+					}
+					
 				}
 				System.out.println();
-				ArrayList<String> aList = teMethodNode.getSubmethod();
-				for(int t = 0; t < aList.size();t++) {
-					System.out.print(aList.get(t)+"     ");
-				}
-				System.out.println();
+				
+				
 			}
 		}
 	}
