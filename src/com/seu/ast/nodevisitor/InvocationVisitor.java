@@ -20,8 +20,8 @@ public class InvocationVisitor extends ASTVisitor {
 	@Override
 	  public boolean visit(MethodInvocation invocation) {
 		//System.out.println("has came in this method");
-		// System.out.println("invocation         "+invocation.toString());
-		 String ex = invocation.toString();
+	// System.out.println("invocation         "+invocation.toString());
+      		 String ex = invocation.toString();
 		 if(ex != null) {
 			 int dotindex = ex.indexOf('.');
 			 int includeindex = ex.indexOf("(");			 
@@ -34,11 +34,14 @@ public class InvocationVisitor extends ASTVisitor {
 			// System.out.println(name +"-------"+methodname);
 			 if(methodNode != null) {
 				 methodNode.AddClassMethod(name, methodname);
+				
 				 for(ClassNodeInMethod tt: methodNode.getSubclass()) {
 					 
 					// System.out.println(tt.getClassname()+"----"+tt.getName()+"-----"+tt.getMethod().size());
 					 
 				 }
+			 }else {
+				 System.out.println("Methodnode is null!");
 			 }
 		 }
 		 // methodNode.AddSubmethod(invocation.getName().getFullyQualifiedName()+"invovation");

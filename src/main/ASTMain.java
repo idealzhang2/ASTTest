@@ -18,6 +18,7 @@ import com.seu.ast.node.ClassNodeInMethod;
 import com.seu.ast.node.CompilationNode;
 import com.seu.ast.node.MethodNode;
 import com.seu.ast.nodevisitor.ClassVisitor;
+import com.seu.ast.nodevisitor.InvocationVisitor;
 
 public class ASTMain {
 
@@ -39,8 +40,9 @@ public class ASTMain {
 		classNode.setName("TEST-----");
 		visitor.setClassnode(classNode);
 		cUnit.accept(visitor);
+		
 		ASTMain astMain = new ASTMain();
-		//astMain.print();
+		astMain.print();
 	}
 	public void print() {
 		ArrayList<ClassNode> classNodes = CompilationNode.unitlist;
@@ -60,9 +62,10 @@ public class ASTMain {
 				ArrayList<ClassNodeInMethod> classes = teMethodNode.getSubclass();
 				for(int t = 0;t < classes.size();t++) {
 					System.out.println(classes.get(t).getClassname()+"  "+classes.get(t).getName());
-					System.out.println("method of class in the method ");
+					System.out.println("method of class in the method   " + classes.get(t).getMethod().size() );
 					for(String tt:classes.get(t).getMethod()) {
-						System.out.print(tt+"  ");	
+					// System.out.println("has came in this method!");
+						System.out.println("method:  "+tt+"  ");	
 					}
 					
 				}

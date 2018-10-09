@@ -21,16 +21,16 @@ import com.seu.ast.node.MethodNode;
 public class MethodVisitor extends ASTVisitor {
 	  private MethodNode methodNode;
 	  
-	  @Override
-	  public boolean visit(SingleVariableDeclaration vDeclaration) {
-		  String classes = vDeclaration.getType().toString();
-		  String name1 = vDeclaration.getName().getFullyQualifiedName();
-		  methodNode.AddClass(classes, name1);		
-		  //System.out.println(classes+"---"+vDeclaration.toString()+"-------"+name1);
-		 // System.out.println(methodNode.getSubclass().size());
-		 // methodNode.AddSubclass(classes);		 
-		  return true;
-	  }
+//	  @Override
+//	  public boolean visit(SingleVariableDeclaration vDeclaration) {
+//		  String classes = vDeclaration.getType().toString();
+//		  String name1 = vDeclaration.getName().getFullyQualifiedName();
+//		  methodNode.AddClass(classes, name1);		
+//		  //System.out.println(classes+"---"+vDeclaration.toString()+"-------"+name1);
+//		 // System.out.println(methodNode.getSubclass().size());
+//		 // methodNode.AddSubclass(classes);		 
+//		  return true;
+//	  }
 //	  @Override
 //	  public boolean visit(MethodInvocation invocation) {
 //		 System.out.println("invocation"+invocation.toString());
@@ -53,12 +53,43 @@ public class MethodVisitor extends ASTVisitor {
 //		  return false;
 //	  }
 //	 
+	  @Override
+	  public boolean visit(MethodInvocation invocation) {
+		//System.out.println("has came in this method");
+	// System.out.println("invocation         "+invocation.toString());
+      		 String ex = invocation.toString();
+		 if(ex != null) {
+			 int dotindex = ex.indexOf('.');
+			 int includeindex = ex.indexOf("(");			 
+			 if(dotindex > includeindex || dotindex == -1) {
+				 return true;
+			 }
+			// System.out.println(dotindex+"----------"+includeindex);
+			 String name = ex.substring(0,dotindex);
+			 String methodname = ex.substring(dotindex+1, includeindex);
+			// System.out.println(name +"-------"+methodname);
+			 if(methodNode != null) {
+				 methodNode.AddClassMethod(name, methodname);
+				
+				 for(ClassNodeInMethod tt: methodNode.getSubclass()) {
+					 
+					// System.out.println(tt.getClassname()+"----"+tt.getName()+"-----"+tt.getMethod().size());
+					 
+				 }
+			 }else {
+				 System.out.println("Methodnode is null!");
+			 }
+		 }
+		 // methodNode.AddSubmethod(invocation.getName().getFullyQualifiedName()+"invovation");
+		  return false;
+	  }
+	  
 	public MethodNode getMethodNode() {
 		return methodNode;
 	}
 	@Override
 	public boolean visit(VariableDeclarationExpression expression) {
-		System.out.println(expression.toString());
+	//	System.out.println(expression.toString());
 		return true;
 	}
 	@Override
@@ -67,10 +98,11 @@ public class MethodVisitor extends ASTVisitor {
 		
 //		Expression statements = statement.getInitializer();
 //		
-		//qwSystem.out.println("Statement" + statement.toString());
+		
 		if(statement == null) {
 			return true;
 		}
+	//	System.out.println("Statement" + statement.toString());
 		String classtype = statement.toString();
 		int index = classtype.indexOf(" ");
 		int endindex = classtype.indexOf("=");
@@ -91,7 +123,10 @@ public class MethodVisitor extends ASTVisitor {
 		if(methodNode == null) {
 			return true;
 		}
-		methodNode.AddClass(type,name);		
+		methodNode.AddClass(type,name);	
+//		 InvocationVisitor invocationVisitor = new InvocationVisitor();
+//		 invocationVisitor.setMethodNode(methodNode);
+//			statement.getParent().accept(invocationVisitor);
 //		//System.out.println(statement.toString());//+"-----++==    "+tem.getInitializer().toString()+"==   "+tem.getName().toString()
 		return true;
 	}

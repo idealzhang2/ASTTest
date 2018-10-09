@@ -26,7 +26,7 @@ public class ClassNodeInMethod {
 	public void setMethod(List<String> method) {
 		this.method = method;
 	}
-	public void addMethod(String name) {
+	public void addMethod(String name) {	
 		method.add(name);
 	}
 	public void deleteMethod(String name) {

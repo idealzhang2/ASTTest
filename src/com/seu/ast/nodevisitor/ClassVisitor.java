@@ -34,7 +34,7 @@ public class ClassVisitor extends ASTVisitor{
 		  CompilationNode.unitlist.add(classnode);		 
 		  MethodVisitor visitor = new MethodVisitor();
 		  MethodNode subnode = new MethodNode();
-		  List<SingleVariableDeclaration> methodDeclarations = mDeclaration.typeParameters();
+           		  List<SingleVariableDeclaration> methodDeclarations = mDeclaration.typeParameters();
 		  for(int i = 0; i < methodDeclarations.size();i++) {
 			  subnode.AddParameter(methodDeclarations.get(i).getName().getFullyQualifiedName());
 		  }
@@ -44,9 +44,9 @@ public class ClassVisitor extends ASTVisitor{
 		  classnode.AddMethodNode(subnode);
 		 visitor.setMethodNode(subnode);
 		  mDeclaration.accept(visitor);
-		  InvocationVisitor invocationVisitor = new InvocationVisitor();
-			invocationVisitor.setMethodNode(subnode);
-			mDeclaration.accept(invocationVisitor);
+//		  InvocationVisitor invocationVisitor = new InvocationVisitor();
+//  			invocationVisitor.setMethodNode(subnode);
+//         			mDeclaration.accept(invocationVisitor);
 		 // System.out.println();
 		//  System.out.println("==============="+mDeclaration.getName().getFullyQualifiedName()+"===================");
 		 return true;

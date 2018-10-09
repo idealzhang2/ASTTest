@@ -32,8 +32,13 @@ public class MethodNode {
 		
 		for (ClassNodeInMethod cInMethod : subclass) {
 			String name = cInMethod.getName();
+			name = name.trim();
+			String name1 = new String(name);
+			String classname1 = new String(classname);			
 			if (classname.equals(name)) {
-				cInMethod.addMethod(methodname);				
+				cInMethod.addMethod(methodname);
+//				System.out.println(cInMethod.getIndex(methodname));
+//				System.out.println(classname+"----------"+methodname);
 			}
 		}
 
