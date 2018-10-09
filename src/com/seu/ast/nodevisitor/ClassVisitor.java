@@ -5,7 +5,11 @@ import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
 import com.seu.ast.node.ClassNode;
 import com.seu.ast.node.CompilationNode;
@@ -40,8 +44,13 @@ public class ClassVisitor extends ASTVisitor{
 		  classnode.AddMethodNode(subnode);
 		 visitor.setMethodNode(subnode);
 		  mDeclaration.accept(visitor);
+		  InvocationVisitor invocationVisitor = new InvocationVisitor();
+			invocationVisitor.setMethodNode(subnode);
+			mDeclaration.accept(invocationVisitor);
 		 // System.out.println();
 		//  System.out.println("==============="+mDeclaration.getName().getFullyQualifiedName()+"===================");
-		 return false;
+		 return true;
 	 }
+	
+	
 }

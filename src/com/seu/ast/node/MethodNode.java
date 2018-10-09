@@ -29,10 +29,11 @@ public class MethodNode {
 		if (classname == null || methodname == null) {
 			return;
 		}
+		
 		for (ClassNodeInMethod cInMethod : subclass) {
 			String name = cInMethod.getName();
 			if (classname.equals(name)) {
-				cInMethod.addMethod(methodname);
+				cInMethod.addMethod(methodname);				
 			}
 		}
 

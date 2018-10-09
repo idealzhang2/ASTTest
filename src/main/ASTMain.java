@@ -1,6 +1,6 @@
 package main;
 
-import java.awt.print.Printable;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,7 +40,7 @@ public class ASTMain {
 		visitor.setClassnode(classNode);
 		cUnit.accept(visitor);
 		ASTMain astMain = new ASTMain();
-		astMain.print();
+		//astMain.print();
 	}
 	public void print() {
 		ArrayList<ClassNode> classNodes = CompilationNode.unitlist;
@@ -56,10 +56,11 @@ public class ASTMain {
 				for(int t = 0; t < parameter.size();t++) {
 					System.out.print(parameter.get(t).toString()+"         ");
 				}
-				System.out.println();
+				
 				ArrayList<ClassNodeInMethod> classes = teMethodNode.getSubclass();
 				for(int t = 0;t < classes.size();t++) {
 					System.out.println(classes.get(t).getClassname()+"  "+classes.get(t).getName());
+					System.out.println("method of class in the method ");
 					for(String tt:classes.get(t).getMethod()) {
 						System.out.print(tt+"  ");	
 					}
