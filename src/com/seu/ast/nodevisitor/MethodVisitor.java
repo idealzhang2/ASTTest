@@ -19,40 +19,7 @@ import com.seu.ast.node.ClassNodeInMethod;
 import com.seu.ast.node.MethodNode;
 
 public class MethodVisitor extends ASTVisitor {
-	  private MethodNode methodNode;
-	  
-//	  @Override
-//	  public boolean visit(SingleVariableDeclaration vDeclaration) {
-//		  String classes = vDeclaration.getType().toString();
-//		  String name1 = vDeclaration.getName().getFullyQualifiedName();
-//		  methodNode.AddClass(classes, name1);		
-//		  //System.out.println(classes+"---"+vDeclaration.toString()+"-------"+name1);
-//		 // System.out.println(methodNode.getSubclass().size());
-//		 // methodNode.AddSubclass(classes);		 
-//		  return true;
-//	  }
-//	  @Override
-//	  public boolean visit(MethodInvocation invocation) {
-//		 System.out.println("invocation"+invocation.toString());
-//		 String ex = invocation.toString();
-//		 if(ex != null) {
-//			 int dotindex = ex.indexOf('.');
-//			 int includeindex = ex.indexOf("(");			 
-//			 if(dotindex > includeindex || dotindex == -1) {
-//				 return true;
-//			 }
-//			// System.out.println(dotindex+"----------"+includeindex);
-//			 String name = ex.substring(0,dotindex);
-//			 String methodname = ex.substring(dotindex+1, includeindex);
-//			// System.out.println(name +"-------"+methodname);
-//			 if(methodNode != null) {
-//				 methodNode.AddClassMethod(name, methodname);
-//			 }
-//		 }
-//		 // methodNode.AddSubmethod(invocation.getName().getFullyQualifiedName()+"invovation");
-//		  return false;
-//	  }
-//	 
+	  private MethodNode methodNode;  
 	  @Override
 	  public boolean visit(MethodInvocation invocation) {
 		//System.out.println("has came in this method");

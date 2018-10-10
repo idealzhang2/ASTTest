@@ -18,7 +18,7 @@ import com.seu.ast.node.ClassNodeInMethod;
 import com.seu.ast.node.CompilationNode;
 import com.seu.ast.node.MethodNode;
 import com.seu.ast.nodevisitor.ClassVisitor;
-import com.seu.ast.nodevisitor.InvocationVisitor;
+
 
 public class ASTMain {
 
@@ -36,16 +36,18 @@ public class ASTMain {
 		CompilationUnit  cUnit = (CompilationUnit)(parser.createAST(null));
 		ClassVisitor visitor = new ClassVisitor();
 		ClassNode classNode = new ClassNode();
+		CompilationNode compilationNode = new CompilationNode();
+		visitor.setCompilationNode(compilationNode);
 		classNode.setFilepath(path);
 		classNode.setName("TEST-----");
 		visitor.setClassnode(classNode);
 		cUnit.accept(visitor);
 		
 		ASTMain astMain = new ASTMain();
-		astMain.print();
+		astMain.print(compilationNode);
 	}
-	public void print() {
-		ArrayList<ClassNode> classNodes = CompilationNode.unitlist;
+	public void print(CompilationNode compilationNode) {
+		ArrayList<ClassNode> classNodes = compilationNode.getUnitlist();
 		for(int i = 0; i < classNodes.size();i++) {
 			ClassNode tem = classNodes.get(i);
 			
@@ -53,23 +55,24 @@ public class ASTMain {
 			ArrayList<MethodNode> temmethod = tem.getMethodlist();
 			for(int j = 0; j < temmethod.size();j++) {
 				MethodNode teMethodNode = temmethod.get(j);
-				System.out.println("-------Method Name:--------"+teMethodNode.getName()+"-------Return Type:----------"+teMethodNode.getReturntype()+"-----数量"+teMethodNode.getSubclass().size());
+				System.out.print("Method Name:  "+teMethodNode.getName()+"   Parameters:   (");
+				//System.out.println("-------Method Name:--------"+teMethodNode.getName()+"-------Return Type:----------"+teMethodNode.getReturntype()+"-----数量"+teMethodNode.getSubclass().size());
 				ArrayList<String> parameter = teMethodNode.getParameter();
 				for(int t = 0; t < parameter.size();t++) {
 					System.out.print(parameter.get(t).toString()+"         ");
 				}
-				
+				System.out.println("){");
 				ArrayList<ClassNodeInMethod> classes = teMethodNode.getSubclass();
 				for(int t = 0;t < classes.size();t++) {
-					System.out.println(classes.get(t).getClassname()+"  "+classes.get(t).getName());
-					System.out.println("method of class in the method   " + classes.get(t).getMethod().size() );
+					System.out.println(classes.get(t).getClassname()+"  "+classes.get(t).getName()+ "  { ");
+					//System.out.println("method of class in the method   " + classes.get(t).getMethod().size() );
 					for(String tt:classes.get(t).getMethod()) {
 					// System.out.println("has came in this method!");
 						System.out.println("method:  "+tt+"  ");	
 					}
-					
+					System.out.println("}");
 				}
-				System.out.println();
+				System.out.println("}");
 				
 				
 			}
