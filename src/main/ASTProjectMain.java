@@ -2,6 +2,7 @@ package main;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.seu.ast.node.ClassNode;
 import com.seu.ast.node.ClassNodeInMethod;
@@ -14,28 +15,41 @@ public class ASTProjectMain {
 	
 	public static void main(String[] args) throws Exception {
 		Compalition compalition = new Compalition();
-		String path = "E:\\idealzhang\\ASTParser\\ASTParser";
+		String path = "E:\\idealzhang\\MRSBWSys";
 		ASTResultCreator creator = new ASTResultCreator();
 		creator.creatAST(path);
 		ProjectNode projectNode = creator.getProjectNode();
-		for(CompilationNode node:projectNode.getCompilationNodes()) {
-			for(ClassNode classNode :node.getUnitlist()) {
-				System.out.println(" class name "+classNode.getName()+" { ");
-				for(MethodNode methodNode:classNode.getMethodlist()) {
-					System.out.println(" Method Name: "+methodNode.getName()+"  { ");
-					for(ClassNodeInMethod inMethod:methodNode.getSubclass()) {
-						System.out.println(" Inner Class: " + inMethod.getClassname()+"     "+inMethod.getName()+"  {");
-						for(String tem :inMethod.getMethod()) {
-							System.out.println("	Inner Method: "+tem);
-						}
-						System.out.println(" } ");
-					}
-					System.out.println(" } ");
-				}
-				System.out.println(" } ");
-			}
-			
+		List<CompilationNode> list = projectNode.getCompilationNodes();
+	for(CompilationNode node:list) {
+		//System.out.println(node.getUnitlist().size());
+		List<ClassNode>  ll = node.getUnitlist();
+		for(ClassNode cn: ll) {
+			System.out.println("class Name:     "+cn.getName()+"   Number of SubMethod:  "+cn.getMethodlist().size());
+			 List<MethodNode> mc = cn.getMethodlist();
+			 for(MethodNode md:mc) {
+				 if(md.getSubclass().size() > 0)
+				 System.out.println("Method Name:  "+md.getName()+"        Number of Subclass:  "+ md.getSubclass().size());
+			 }
 		}
+	}
+//		for(CompilationNode node:projectNode.getCompilationNodes()) {
+//			for(ClassNode classNode :node.getUnitlist()) {
+//				System.out.println(" class name "+classNode.getName()+" { ");
+//				for(MethodNode methodNode:classNode.getMethodlist()) {
+//					System.out.println(" Method Name: "+methodNode.getName()+"  { ");
+//					for(ClassNodeInMethod inMethod:methodNode.getSubclass()) {
+//						System.out.println(" Inner Class: " + inMethod.getClassname()+"     "+inMethod.getName()+"  {");
+//						for(String tem :inMethod.getMethod()) {
+//							System.out.println("	Inner Method: "+tem);
+//						}
+//						System.out.println(" } ");
+//					}
+//					System.out.println(" } ");
+//				}
+//				System.out.println(" } ");
+//			}
+//			
+//		}
 //		compalition.searchfiles(path);
 //		for(String tem:compalition.getSrclist()) {
 //			System.out.println(tem);

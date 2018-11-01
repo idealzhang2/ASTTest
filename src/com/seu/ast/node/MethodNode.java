@@ -12,6 +12,8 @@ public class MethodNode {
 		if(type == null || methodname == null || "".equals(type) || "".equals(methodname)) {
 			return;
 		}
+		type = type.trim();
+		methodname = methodname.trim();
 		for(ClassNodeInMethod method: subclass) {
 			String typename = method.getClassname();
 			String name = method.getName();

@@ -23,7 +23,7 @@ public class MethodVisitor extends ASTVisitor {
 	  @Override
 	  public boolean visit(MethodInvocation invocation) {
 		//System.out.println("has came in this method");
-	// System.out.println("invocation         "+invocation.toString());
+	 System.out.println("invocation         "+invocation.toString());
       		 String ex = invocation.toString();
 		 if(ex != null) {
 			 int dotindex = ex.indexOf('.');

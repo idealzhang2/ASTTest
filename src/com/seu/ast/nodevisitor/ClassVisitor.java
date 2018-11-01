@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+import org.eclipse.jdt.core.dom.TypeParameter;
 import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
@@ -39,11 +40,11 @@ public class ClassVisitor extends ASTVisitor {
 	public boolean visit(MethodDeclaration mDeclaration) {
 		String name = mDeclaration.getName().getFullyQualifiedName();
 		// classnode.setName(name);
-
+		//System.out.println(name);
 		compilationNode.getUnitlist().add(classnode);
 		MethodVisitor visitor = new MethodVisitor();
 		MethodNode subnode = new MethodNode();
-		List<SingleVariableDeclaration> methodDeclarations = mDeclaration.typeParameters();
+		List<TypeParameter> methodDeclarations = mDeclaration.typeParameters();
 		for (int i = 0; i < methodDeclarations.size(); i++) {
 			subnode.AddParameter(methodDeclarations.get(i).getName().getFullyQualifiedName());
 		}
