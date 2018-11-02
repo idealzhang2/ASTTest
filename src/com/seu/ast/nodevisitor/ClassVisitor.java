@@ -7,6 +7,7 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.TypeParameter;
 import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -19,7 +20,6 @@ import com.seu.ast.node.MethodNode;
 public class ClassVisitor extends ASTVisitor {
 	private CompilationNode compilationNode;
 	private ClassNode classnode;
-	
 	public CompilationNode getCompilationNode() {
 		return compilationNode;
 	}
@@ -35,13 +35,34 @@ public class ClassVisitor extends ASTVisitor {
 	public void setClassnode(ClassNode classnode) {
 		this.classnode = classnode;
 	}
-
+	@Override
+	public boolean visit(TypeDeclaration node) {
+		//System.out.println("Class:\t" + node.getName());//+"   "+node.toString()
+		if(node.getName() == null) {
+			return true;
+		}
+		String classname = node.getName().getFullyQualifiedName();
+		classnode.setName(classname);
+//		List<ClassNode> ll = compilationNode.getUnitlist();
+//		for(ClassNode cNode:ll) {
+//			if(classname.equals(cNode.getName())) {
+//				
+//				return true;
+//			}
+//		}
+//		
+//		classnode = new ClassNode();
+//		compilationNode.getUnitlist().add(classnode);
+		
+		return true;
+	}
+	
 	@Override
 	public boolean visit(MethodDeclaration mDeclaration) {
 		String name = mDeclaration.getName().getFullyQualifiedName();
 		// classnode.setName(name);
 		//System.out.println(name);
-		compilationNode.getUnitlist().add(classnode);
+		//compilationNode.getUnitlist().add(classnode);
 		MethodVisitor visitor = new MethodVisitor();
 		MethodNode subnode = new MethodNode();
 		List<TypeParameter> methodDeclarations = mDeclaration.typeParameters();
@@ -55,7 +76,7 @@ public class ClassVisitor extends ASTVisitor {
 		visitor.setMethodNode(subnode);
 		mDeclaration.accept(visitor);
 		// System.out.println("==============="+mDeclaration.getName().getFullyQualifiedName()+"===================");
-		return true;
+		return false;
 	}
 
 }

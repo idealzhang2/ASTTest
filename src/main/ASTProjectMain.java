@@ -20,15 +20,24 @@ public class ASTProjectMain {
 		creator.creatAST(path);
 		ProjectNode projectNode = creator.getProjectNode();
 		List<CompilationNode> list = projectNode.getCompilationNodes();
+		//System.out.println(list.size());
 	for(CompilationNode node:list) {
-		//System.out.println(node.getUnitlist().size());
+		
 		List<ClassNode>  ll = node.getUnitlist();
 		for(ClassNode cn: ll) {
 			System.out.println("class Name:     "+cn.getName()+"   Number of SubMethod:  "+cn.getMethodlist().size());
 			 List<MethodNode> mc = cn.getMethodlist();
 			 for(MethodNode md:mc) {
-				 if(md.getSubclass().size() > 0)
-				 System.out.println("Method Name:  "+md.getName()+"        Number of Subclass:  "+ md.getSubclass().size());
+				 if(md.getSubclass().size() > 0) {
+					 ArrayList<ClassNodeInMethod> inMethods=md.getSubclass();
+					 for(ClassNodeInMethod method:inMethods) {
+						 System.out.println(method.getClassname()+"    "+method.getName());
+						 for(String tt:method.getMethod()) {
+							 System.out.print(tt+"        ");
+						 }
+					 }
+				 }
+				// System.out.println("Method Name:  "+md.getName()+"        Number of Subclass:  "+ md.getSubclass().size());
 			 }
 		}
 	}

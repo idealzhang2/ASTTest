@@ -14,6 +14,7 @@ public class MethodNode {
 		}
 		type = type.trim();
 		methodname = methodname.trim();
+		//System.out.println("add class:  "+type +"         "+methodname);
 		for(ClassNodeInMethod method: subclass) {
 			String typename = method.getClassname();
 			String name = method.getName();
@@ -31,7 +32,8 @@ public class MethodNode {
 		if (classname == null || methodname == null) {
 			return;
 		}
-		
+		classname = classname.trim();
+		methodname = methodname.trim();
 		for (ClassNodeInMethod cInMethod : subclass) {
 			String name = cInMethod.getName();
 			name = name.trim();
